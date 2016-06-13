@@ -19,6 +19,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -130,9 +131,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201606030330398_init1.cs" />
-    <Compile Include="Migrations\201606030330398_init1.Designer.cs">
-      <DependentUpon>201606030330398_init1.cs</DependentUpon>
+    <Compile Include="Migrations\201606131358286_init1.cs" />
+    <Compile Include="Migrations\201606131358286_init1.Designer.cs">
+      <DependentUpon>201606131358286_init1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AuthContext.cs" />
@@ -159,8 +160,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201606030330398_init1.resx">
-      <DependentUpon>201606030330398_init1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201606131358286_init1.resx">
+      <DependentUpon>201606131358286_init1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -178,7 +179,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50028</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50028/</IISUrl>
+          <IISUrl>http://localhost:9988</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -13,7 +13,7 @@ namespace GfkApp.Web.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201606030330398_init1"; }
+            get { return "201606131358286_init1"; }
         }
         
         string IMigrationMetadata.Source

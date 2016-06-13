@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IRefreshTokenService.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -46,6 +47,10 @@
     <ProjectReference Include="..\GfkApp.Application.DTOs\GfkApp.Application.DTOs.csproj">
       <Project>{e7fc48c8-1771-4e4a-9a07-3bb51ba959e9}</Project>
       <Name>GfkApp.Application.DTOs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GfkApp.Domain\GfkApp.Domain.csproj">
+      <Project>{bb48b414-a999-4c02-b9ad-e078010aa96e}</Project>
+      <Name>GfkApp.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -11,9 +11,9 @@ using GfkApp.Repository;
 using AutoMapper;
 using GfkApp.Domain.Entity;
 using GfkApp.Application.DTOs;
-using GfkApp.Application.Services;
+//using GfkApp.Application.Services;
 using GfkApp.Application.Interfaces;
-using GfkApp.Domain.DomainServices;
+//using GfkApp.Domain.DomainServices;
 
 namespace GfkApp.Bootstrapper
 {
@@ -25,9 +25,9 @@ namespace GfkApp.Bootstrapper
             var container = Default
                 .RegisterType<IUnitOfWork, UnitOfWork>()
                 .RegisterType<IDbContext, GfkAppContext>()
-                .RegisterType<IUserRepository, UserRepository>()
-                .RegisterType<IUserService, UserService>()
-                .RegisterType<IUserAuthenticationService, UserAuthenticationService>();
+                .RegisterType<IRefreshTokenRepository, RefreshTokenRepository>();
+            //.RegisterType<IUserService, UserService>();
+            //.RegisterType<IUserAuthenticationService, UserAuthenticationService>();
 
             ConfigureMapper();
             return Default;
@@ -36,10 +36,10 @@ namespace GfkApp.Bootstrapper
 
         public static void ConfigureMapper()
         {
-            Mapper.Initialize(t =>
-            {
-                t.CreateMap<User, UserDTO>();
-            });
+            //Mapper.Initialize(t =>
+            //{
+            //    t.CreateMap<Microsoft.AspNet.Identity.identity, UserDTO>();
+            //});
         }
     }
 }

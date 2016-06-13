@@ -9,13 +9,16 @@ using System.Threading.Tasks;
 
 namespace GfkApp.Repository
 {
-    public abstract class BaseRepository<TAggregateRoot> : IRepository<TAggregateRoot> where TAggregateRoot : class ,IAggregateRoot
+    public abstract class BaseRepository<TAggregateRoot> : IRepository<TAggregateRoot> where TAggregateRoot : class, IAggregateRoot
     {
 
         private readonly IQueryable<TAggregateRoot> _entities;
 
+        protected IDbContext DbContext { get; private set; }
+
         public BaseRepository(IDbContext dbContext)
         {
+            this.DbContext = dbContext;
             this._entities = dbContext.Set<TAggregateRoot>();
 
         }

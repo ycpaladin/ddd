@@ -13,5 +13,10 @@ namespace GfkApp.Repository.Interfaces
         IQueryable<TAggregateRoot> Get(string id);
 
         IQueryable<TAggregateRoot> GetAll();
+
+
+        Task<TAggregateRoot> FindByIdAsync(string id);
+
+
     }
 }

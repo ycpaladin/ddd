@@ -19,20 +19,20 @@ namespace GfkApp.Repository
 
         }
 
-        public async Task<bool> Insert(RefreshToken entity)
-        {
-            var unitOfWork = new UnitOfWork(this.DbContext);
-            unitOfWork.RegisterNew(entity);
-            return await unitOfWork.CommitAsync();
-        }
+        //public async Task<bool> Insert(RefreshToken entity)
+        //{
+        //    var unitOfWork = new UnitOfWork(this.DbContext);
+        //    unitOfWork.RegisterNew(entity);
+        //    return await unitOfWork.CommitAsync();
+        //}
 
-        public async Task<bool> Remove(string id)
-        {
-            var unitOfWork = new UnitOfWork(this.DbContext);
-            var entity = this.Get(id);
-            unitOfWork.RegisterDeleted(entity);
-            return await unitOfWork.CommitAsync();
-        }
+        //public async Task<bool> Remove(string id)
+        //{
+        //    var unitOfWork = new UnitOfWork(this.DbContext);
+        //    var entity = this.Get(id);
+        //    unitOfWork.RegisterDeleted(entity);
+        //    return await unitOfWork.CommitAsync();
+        //}
 
         //public async Task<User> GetUser(string loginName, string password)
         //{

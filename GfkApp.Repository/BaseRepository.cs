@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace GfkApp.Repository
 {
@@ -31,6 +32,11 @@ namespace GfkApp.Repository
         public IQueryable<TAggregateRoot> GetAll()
         {
             return this._entities;
+        }
+
+        public async Task<TAggregateRoot> FindByIdAsync(string id)
+        {
+            return await this.Get(id).FirstOrDefaultAsync();
         }
     }
 }

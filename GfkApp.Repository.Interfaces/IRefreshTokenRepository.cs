@@ -9,8 +9,8 @@ namespace GfkApp.Repository.Interfaces
 {
     public interface IRefreshTokenRepository: IRepository<RefreshToken>
     {
-        Task<bool> Insert(RefreshToken entity);
+        //Task<bool> Insert(RefreshToken entity);
 
-        Task<bool> Remove(string id);
+        //Task<bool> Remove(string id);
      }
 }

@@ -26,7 +26,7 @@ namespace GfkApp.Web.Provider
             context.TryGetBasicCredentials(out clientId, out clientSecret);
             if (clientId == "kevin" && clientSecret == "Aa123456")
             {
-                context.Validated();
+                context.Validated(clientId);
             }
 
             return base.ValidateClientAuthentication(context);
@@ -57,10 +57,10 @@ namespace GfkApp.Web.Provider
 
             var props = new AuthenticationProperties(new Dictionary<string, string>
                 {
-                    { 
+                    {
                         "as:client_id", context.ClientId ?? "gfkApp"
                     },
-                    { 
+                    {
                         "userName", context.UserName
                     }
                 });
@@ -113,8 +113,15 @@ namespace GfkApp.Web.Provider
         public override Task GrantClientCredentials(OAuthGrantClientCredentialsContext context)
         {
             var oAuthIdentity = new ClaimsIdentity(context.Options.AuthenticationType);
+
+            var props = new AuthenticationProperties(new Dictionary<string, string>
+                {
+                    {
+                        "as:client_id", context.ClientId
+                    }
+                });
             oAuthIdentity.AddClaim(new Claim(ClaimTypes.Name, "iOS App"));
-            var ticket = new AuthenticationTicket(oAuthIdentity, new AuthenticationProperties());
+            var ticket = new AuthenticationTicket(oAuthIdentity, props);
             context.Validated(ticket);
             return base.GrantClientCredentials(context);
         }

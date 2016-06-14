@@ -10,7 +10,7 @@ namespace GfkApp.Web.Models
     public class AuthContext : IdentityDbContext<IdentityUser>
     {
         public AuthContext()
-            : base("AuthContext")
+            : base("GFKAPP")
         {
 
 

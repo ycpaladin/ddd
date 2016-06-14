@@ -14,39 +14,29 @@ namespace GfkApp.Web.Provider
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
 
-        //public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
-        //{
-        //    string clientId;
-        //    string clientSecret;
-        //    context.TryGetFormCredentials(out clientId, out clientSecret);
-
-        //    if (clientId == "kevin" && clientSecret == "Aa123456")
-        //    {
-        //        context.Validated(clientId);
-        //    }
-        //    return base.ValidateClientAuthentication(context);
-        //}
-
-        //public override Task GrantClientCredentials(OAuthGrantClientCredentialsContext context)
-        //{
-        //    var oAuthIdentity = new ClaimsIdentity(context.Options.AuthenticationType);
-        //    oAuthIdentity.AddClaim(new Claim(ClaimTypes.Name, "iOS App"));
-        //    var ticket = new AuthenticationTicket(oAuthIdentity, new AuthenticationProperties());
-        //    context.Validated(ticket);
-
-        //    return base.GrantClientCredentials(context);
-        //}
-
+        /// <summary>
+        /// 验证客户端的clientid 和 secret
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
             string clientId;
             string clientSecret;
-            context.TryGetFormCredentials(out clientId, out clientSecret);
-            context.Validated();
-            return Task.FromResult<object>(null);
+            context.TryGetBasicCredentials(out clientId, out clientSecret);
+            if (clientId == "kevin" && clientSecret == "Aa123456")
+            {
+                context.Validated();
+            }
+
+            return base.ValidateClientAuthentication(context);
         }
 
-
+        /// <summary>
+        /// 处理用户请求
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public async override Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
             using (var _repo = new AuthRepository())
@@ -90,7 +80,11 @@ namespace GfkApp.Web.Provider
             return Task.FromResult<object>(null);
         }
 
-
+        /// <summary>
+        /// 处理刷新token的请求
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public async override Task GrantRefreshToken(OAuthGrantRefreshTokenContext context)
         {
             var originalClient = context.Ticket.Properties.Dictionary["as:client_id"];
@@ -111,26 +105,18 @@ namespace GfkApp.Web.Provider
             await base.GrantRefreshToken(context);
         }
 
-
-        public async override Task GrantClientCredentials(OAuthGrantClientCredentialsContext context)
+        /// <summary>
+        /// 处理客户端请求
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public override Task GrantClientCredentials(OAuthGrantClientCredentialsContext context)
         {
-
-            //await Task.Run(() =>
-            //{
             var oAuthIdentity = new ClaimsIdentity(context.Options.AuthenticationType);
-
-            var props = new AuthenticationProperties(new Dictionary<string, string>
-                {
-                    { "as:client_id", context.ClientId }
-                });
-            var ticket = new AuthenticationTicket(oAuthIdentity, props);
-
+            oAuthIdentity.AddClaim(new Claim(ClaimTypes.Name, "iOS App"));
+            var ticket = new AuthenticationTicket(oAuthIdentity, new AuthenticationProperties());
             context.Validated(ticket);
-
-            //});
-
-            await base.GrantClientCredentials(context);
-
+            return base.GrantClientCredentials(context);
         }
     }
 }

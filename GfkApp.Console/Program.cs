@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
 using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace GfkApp.Console
 {
@@ -16,37 +17,22 @@ namespace GfkApp.Console
 
         static void Main(string[] args)
         {
-            //var obj = Startup.Configure().Resolve<UserService>();
-
-            //var result = obj.Login("kevin", "123").Result;
-            //System.Console.WriteLine(result);
-
-            var http = new HttpClient();
-            http.BaseAddress = new Uri("http://localhost:50028");
-
-            var p = new Dictionary<string, string>();
-            p.Add("username", "kevin");
-            p.Add("password", "Aa123456");
-            p.Add("grant_type", "password");
-
-            http.DefaultRequestHeaders.Add("grant_type", "password");
-            http.DefaultRequestHeaders.Add("username", "kevin");
-            http.DefaultRequestHeaders.Add("password", "Aa123456");
-
-            var result = http.PostAsync("/token", new FormUrlEncodedContent(p)).Result.Content.ReadAsStringAsync().Result;
-            System.Console.WriteLine(result);
 
 
-            //var http = new HttpClient();
-            //http.BaseAddress = new Uri("http://localhost:50028");
+            HttpClient _httpClient = new HttpClient();
+            _httpClient.BaseAddress = new Uri("http://localhost:9988");
+            var clientId = "kevin";
+            var clientSecret = "Aa123456";
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                    "Basic",
+                    Convert.ToBase64String(Encoding.ASCII.GetBytes(clientId + ":" + clientSecret)));
 
-            //var p = new Dictionary<string, string>();
-            //p.Add("UserName", "lxy");
-            //p.Add("Password", "Aa123456");
-            //p.Add("ConfirmPassword", "Aa123456");
+            var parameters = new Dictionary<string, string>();
+            parameters.Add("grant_type", "client_credentials");
 
-            //var result = http.PostAsync("/api/Account/Register", new FormUrlEncodedContent(p)).Result.StatusCode;//.Content.ReadAsStringAsync().Result;
-            //System.Console.WriteLine(result);
+            System.Console.WriteLine(_httpClient.PostAsync("/token", new FormUrlEncodedContent(parameters))
+                .Result.Content.ReadAsStringAsync().Result);
+
         }
     }
 
